@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="224dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="123dp"
+        app:srcCompat="@drawable/title2" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="298dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:background="#1Ae6e6e6"
+        android:capitalize="none"
+        android:text="Log In"
+        android:textAllCaps="false"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="298dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="109dp"
+        android:background="#1Ae6e6e6"
+        android:capitalize="none"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+        android:layout_width="298dp"
+        android:layout_height="55dp"
+        android:layout_centerInParent="true"
+        android:background="#1Ae6e6e6"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="298dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190dp"
+        android:background="#1Ae6e6e6"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>
