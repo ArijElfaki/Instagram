@@ -9,8 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -24,15 +22,13 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private static final String imagePath= "/storage/emulated/0/DCIM/Camera/IMG_20180709_175425.jpg";
+ /*   private static final String imagePath= "/storage/emulated/0/DCIM/Camera/IMG_20180709_175425.jpg";
 
     private EditText descriptionInput;
     private Button createButton;
     private Button refreshButton;
     private Button logoutButton;
-
-
-
+*/
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
     // define your fragments here
@@ -47,15 +43,15 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.Profile:
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_profile, Profile).commit();
+                    fragmentTransaction.replace(R.id.fragment ,Profile).commit();
                     return true;
                 case R.id.Home:
                     FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
-                    fragmentTransaction2.replace(R.id.fragment_timeline, TimeLine).commit();
+                    fragmentTransaction2.replace(R.id.fragment, TimeLine).commit();
                     return true;
                 case R.id.Camera:
                     FragmentTransaction fragmentTransaction3 = fragmentManager.beginTransaction();
-                    fragmentTransaction3.replace(R.id.fragment_camera, Camera).commit();
+                    fragmentTransaction3.replace(R.id.fragment, Camera).commit();
                     return true;
             }
 
@@ -69,6 +65,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, Profile).commit();
+
+        BottomNavigationView navigation= (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(bottomNavigationView);
 
 
        /* descriptionInput= findViewById(R.id.etDescription);
@@ -108,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
         loadTopPosts();
 
         */
-
 
     }
 
