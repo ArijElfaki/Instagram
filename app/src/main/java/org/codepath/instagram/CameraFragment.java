@@ -39,6 +39,9 @@ public class CameraFragment extends Fragment {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     File photoFile;
+
+
+
     Button btCamera;
     Button btPost;
     ImageView userPic;
@@ -77,7 +80,6 @@ public class CameraFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            final Bundle extras = data.getExtras();
             final Bitmap imageBitmap = (BitmapFactory.decodeFile(photoFile.getAbsolutePath()));
             userPic.setImageBitmap(imageBitmap);
 
@@ -95,6 +97,13 @@ public class CameraFragment extends Fragment {
 
                     Log.d("CameraActivity", "Inside onCLick!");
                     createPost(descript, parseFile, user);
+
+                    btPost.setVisibility(View.INVISIBLE);
+                    userPic.setVisibility(View.INVISIBLE);
+                    description.setVisibility(View.INVISIBLE);
+                    btCamera.setVisibility(View.VISIBLE);
+
+
                 }
             });
 

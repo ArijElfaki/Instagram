@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, Profile).commit();
+        fragmentTransaction.replace(R.id.fragment, TimeLine).commit();
 
         BottomNavigationView navigation= (BottomNavigationView)findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(bottomNavigationView);
@@ -153,5 +153,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public void openDetails(Post post){
+
+    }
+
 
 }
