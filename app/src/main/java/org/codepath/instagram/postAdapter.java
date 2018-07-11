@@ -81,24 +81,23 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             commentIcon = (ImageView) itemView.findViewById(R.id.ivComment);
             likeIcon = (ImageView) itemView.findViewById(R.id.ivLikes);
             timeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
+            itemView.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View view) {
+
             int position = getAdapterPosition();
             // make sure the position is valid, i.e. actually exists in the view
             if (position != RecyclerView.NO_POSITION) {
-                // get the movie at the position, this won't work if the class is static
+                // get the post at the position, this won't work if the class is static
                 Post post = mPost.get(position);
-
                 ((HomeActivity)context).openDetails(post);
 
             }
         }
     }
-
-
 
 
     // Clean all elements of the recycler

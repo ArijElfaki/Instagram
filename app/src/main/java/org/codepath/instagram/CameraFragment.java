@@ -106,8 +106,6 @@ public class CameraFragment extends Fragment {
 
                 }
             });
-
-
         }
     }
 
@@ -151,9 +149,6 @@ public class CameraFragment extends Fragment {
             }
         });
     }
-
-
-
 
 
     public File getPhotoFileUri(String fileName) {
