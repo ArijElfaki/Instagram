@@ -44,8 +44,12 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         Post post= mPost.get(position);
         holder.userName.setText(post.getUser().getUsername());
         holder.description.setText(post.getDescription());
+        holder.timeStamp.setText(post.getRelativeTimeAgo());
         GlideApp.with(context).load(post.getImage().getUrl())
                .into(holder.image);
+
+        GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl())
+                .into(holder.ivProfileImage);
 
     }
 
@@ -76,8 +80,6 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             image= (ImageView)itemView.findViewById(R.id.postImage);
             userName= (TextView)itemView.findViewById(R.id.tvUserName);
             description= (TextView)itemView.findViewById(R.id.tvdescript);
-            likes = (TextView) itemView.findViewById(R.id.likes);
-            comment = (TextView) itemView.findViewById(R.id.tvcomment);
             commentIcon = (ImageView) itemView.findViewById(R.id.ivComment);
             likeIcon = (ImageView) itemView.findViewById(R.id.ivLikes);
             timeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);

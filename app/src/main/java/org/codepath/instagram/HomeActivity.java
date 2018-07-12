@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView navigation= (BottomNavigationView)findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(bottomNavigationView);
-
     }
 
 
@@ -69,8 +68,6 @@ public class HomeActivity extends AppCompatActivity {
         Details.setArguments(args);
         FragmentTransaction fragmentTransaction4 = fragmentManager.beginTransaction();
         fragmentTransaction4.replace(R.id.fragment, Details).commit();
-
-
     }
 
 

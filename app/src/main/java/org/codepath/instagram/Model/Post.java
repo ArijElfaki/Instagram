@@ -1,5 +1,7 @@
 package org.codepath.instagram.Model;
 
+import android.text.format.DateUtils;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -13,6 +15,7 @@ public class Post extends ParseObject {
     private static final String KEY_IMAGE= "Image";
     private static final String KEY_USER="User";
     private static final String KEY_MEDIA="media";
+    private static final String KEY_PROFILE="Profile";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -46,6 +49,8 @@ public class Post extends ParseObject {
         put(KEY_MEDIA, parseFile);
     }
 
+
+
     public static class Query extends ParseQuery<Post>{
         public Query(){
             super(Post.class);
@@ -61,6 +66,11 @@ public class Post extends ParseObject {
             return this;
         }
 
+    }
+
+    public String getRelativeTimeAgo() {
+        long dateMillis = getCreatedAt().getTime();
+        return DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
     }
 
 }
