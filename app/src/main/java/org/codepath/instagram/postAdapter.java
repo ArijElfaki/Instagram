@@ -3,9 +3,11 @@ package org.codepath.instagram;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,9 +70,10 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         public TextView timeStamp;
         public TextView description;
         public TextView likes;
-        public TextView comment;
+        public EditText comment;
         public ImageView commentIcon;
         public ImageView likeIcon;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -83,7 +86,29 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             commentIcon = (ImageView) itemView.findViewById(R.id.ivComment);
             likeIcon = (ImageView) itemView.findViewById(R.id.ivLikes);
             timeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
-            itemView.setOnClickListener(this);
+            comment= (EditText)itemView.findViewById(R.id.etComment);
+            image.setOnClickListener(this);
+
+
+            commentIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String text= comment.getText().toString();
+                    int position = getAdapterPosition();
+                    // make sure the position is valid, i.e. actually exists in the view
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get the post at the position, this won't work if the class is static
+                        Post post = mPost.get(position);
+
+                        post.add("Comment",text);
+                        post.saveInBackground();
+                        Log.d("postAdapter", "Comment added");
+                        comment.getText().clear();
+                    }
+
+
+                }
+            });
 
         }
 

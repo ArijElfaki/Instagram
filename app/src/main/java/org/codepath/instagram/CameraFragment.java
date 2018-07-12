@@ -27,6 +27,7 @@ import com.parse.SaveCallback;
 import org.codepath.instagram.Model.Post;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -130,6 +131,7 @@ public class CameraFragment extends Fragment {
         newPost.setDescription(description);
         newPost.setImage(imageFile);
         newPost.setUser(user);
+        newPost.put("Comment", new ArrayList<String>());
 
         Log.d("CameraActivity", "Inside CameraActivity");
         newPost.saveInBackground(new SaveCallback() {
