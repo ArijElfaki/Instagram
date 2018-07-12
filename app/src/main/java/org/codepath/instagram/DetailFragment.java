@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,12 @@ import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.codepath.instagram.Model.Post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailFragment extends Fragment {
@@ -27,6 +33,10 @@ public class DetailFragment extends Fragment {
     public TextView comment;
     public ImageView commentIcon;
     public ImageView likeIcon;
+
+    public RecyclerView rvComments;
+    public commentAdapter commentAdapter;
+    public List<Object> comments;
 
 
 
@@ -50,6 +60,14 @@ public class DetailFragment extends Fragment {
         commentIcon = (ImageView) view.findViewById(R.id.ivComment);
         likeIcon = (ImageView) view.findViewById(R.id.ivLikes);
         timeStamp = (TextView) view.findViewById(R.id.tvTimeStamp);
+        rvComments= (RecyclerView)view.findViewById(R.id.rvComments);
+        comments= new ArrayList<>();
+
+        commentAdapter= new commentAdapter(comments);
+        //RecyclerView setup (layout manager, use adapter)
+        rvComments.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvComments.setAdapter(commentAdapter);
+
 
         Bundle args= getArguments();
         String id= args.getString("Post");
@@ -65,12 +83,26 @@ public class DetailFragment extends Fragment {
                     timeStamp.setText(object.getRelativeTimeAgo());
                     GlideApp.with(getContext()).load(object.getImage().getUrl())
                             .into(image);
+                    GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
+                            .into(ivProfileImage);
+                    comments.clear();
+                    comments.addAll(object.getList("Comment"));
+
+
+                    commentAdapter.notifyDataSetChanged();
+
+
                 } catch (ParseException e1) {
                     e1.printStackTrace();
                 }
 
             }
         });
+
+
+
+
+
 
 
     }
