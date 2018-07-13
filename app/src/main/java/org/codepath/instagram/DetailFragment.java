@@ -33,6 +33,7 @@ public class DetailFragment extends Fragment {
     public TextView comment;
     public ImageView commentIcon;
     public ImageView likeIcon;
+    public TextView tvComment;
 
     public RecyclerView rvComments;
     public commentAdapter commentAdapter;
@@ -61,6 +62,7 @@ public class DetailFragment extends Fragment {
         likeIcon = (ImageView) view.findViewById(R.id.ivLikes);
         timeStamp = (TextView) view.findViewById(R.id.tvTimeStamp);
         rvComments= (RecyclerView)view.findViewById(R.id.rvComments);
+        tvComment= (TextView)view.findViewById(R.id.tvcomment);
         comments= new ArrayList<>();
 
         commentAdapter= new commentAdapter(comments);
@@ -87,8 +89,7 @@ public class DetailFragment extends Fragment {
                             .into(ivProfileImage);
                     comments.clear();
                     comments.addAll(object.getList("Comment"));
-
-
+                    tvComment.setText(comments.size());
                     commentAdapter.notifyDataSetChanged();
 
 

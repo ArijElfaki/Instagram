@@ -11,17 +11,27 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import org.codepath.instagram.Model.Post;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,8 +45,20 @@ public class ProfileFragment extends Fragment {
 
 
 
+    TextView userName;
     Button btLogout;
     ImageView profile;
+    Button setBio;
+    Button editBio;
+    TextView tvBio;
+    EditText etBio;
+
+
+    postAdapter postAdapter;
+    ArrayList<Post> posts;
+    RecyclerView rvPosts;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +71,32 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profile=view.findViewById(R.id.ivProfile);
+        setBio=view.findViewById(R.id.btSetBio);
+        editBio=view.findViewById(R.id.btEditbio);
+        tvBio=view.findViewById(R.id.tvBio);
+        etBio=view.findViewById(R.id.etBio);
+        rvPosts=view.findViewById(R.id.rvProfile);
+        userName=(TextView) view.findViewById(R.id.profileUsername);
 
-        GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl())
+        posts=new ArrayList<>();
+        postAdapter= new postAdapter(posts);
+        //RecyclerView setup (layout manager, use adapter)
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setAdapter(postAdapter);
+        loadTopPosts();
+
+
+        userName.setText(ParseUser.getCurrentUser().getUsername());
+        setBio.setVisibility(View.INVISIBLE);
+        etBio.setVisibility(View.INVISIBLE);
+        GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
                 .into(profile);
+
+
+        tvBio.setText( ParseUser.getCurrentUser().getString("Bio"));
+
+
         btLogout= view.findViewById(R.id.logout);
-
-
         btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,10 +116,36 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        editBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBio.setVisibility(View.VISIBLE);
+                etBio.setVisibility(View.VISIBLE);
+
+                editBio.setVisibility(View.INVISIBLE);
+                tvBio.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        setBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String bio= etBio.getText().toString();
+
+                ParseUser.getCurrentUser().put("Bio", bio);
+                ParseUser.getCurrentUser().saveInBackground();
+
+                tvBio.setText( ParseUser.getCurrentUser().getString("Bio"));
+
+                setBio.setVisibility(View.INVISIBLE);
+                etBio.setVisibility(View.INVISIBLE);
+
+                editBio.setVisibility(View.VISIBLE);
+                tvBio.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
-
-
-
 
 
 
@@ -138,10 +206,37 @@ public class ProfileFragment extends Fragment {
 
 
             Log.d("ProfileFragment", "Set Profile!");
-
-
-
         }
     }
+
+
+
+    private void loadTopPosts(){
+        final Post.Query postQuery= new Post.Query();
+        postQuery.getTop().withUser();
+
+        postQuery.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                if (e==null){
+                    for (int i=0; i<objects.size(); ++i){
+                        Log.d("TimelineFragment", "Post{"+i+"} = "
+                                +objects.get(i).getDescription()
+                                +"\nusername = "+objects.get(i).getUser().getUsername()
+                        );
+
+                        if (objects.get(i).getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                            posts.add(0,objects.get(i));
+                            postAdapter.notifyDataSetChanged();}
+
+                    }
+                }
+                else{
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
 }

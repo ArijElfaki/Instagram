@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 import org.codepath.instagram.Model.Post;
 
 import java.util.List;
@@ -46,12 +48,16 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         Post post= mPost.get(position);
         holder.userName.setText(post.getUser().getUsername());
         holder.description.setText(post.getDescription());
+        holder.commentCount.setText(""+post.getList("Comment").size());
         holder.timeStamp.setText(post.getRelativeTimeAgo());
         GlideApp.with(context).load(post.getImage().getUrl())
                .into(holder.image);
 
-        GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl())
+        GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl()).circleCrop()
                 .into(holder.ivProfileImage);
+
+        GlideApp.with(context).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
+                .into(holder.commentProfile);
 
     }
 
@@ -73,7 +79,8 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         public EditText comment;
         public ImageView commentIcon;
         public ImageView likeIcon;
-
+        public ImageView commentProfile;
+        public TextView commentCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +94,8 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             likeIcon = (ImageView) itemView.findViewById(R.id.ivLikes);
             timeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
             comment= (EditText)itemView.findViewById(R.id.etComment);
+            commentProfile= (ImageView)itemView.findViewById(R.id.ivCurrUser);
+            commentCount= (TextView)itemView.findViewById(R.id.commentCount);
             image.setOnClickListener(this);
 
 
@@ -94,6 +103,7 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     String text= comment.getText().toString();
+                    text= ParseUser.getCurrentUser().getObjectId()+" "+text;
                     int position = getAdapterPosition();
                     // make sure the position is valid, i.e. actually exists in the view
                     if (position != RecyclerView.NO_POSITION) {

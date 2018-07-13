@@ -29,10 +29,8 @@
         android:id="@+id/ivComment"
         android:layout_width="33dp"
         android:layout_height="33dp"
-
-        android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/ivLikes"
-        android:layout_marginStart="81dp"
+        android:layout_toEndOf="@+id/tvdescript"
         app:srcCompat="@drawable/ufi_comment" />
 
     <ImageView
@@ -76,15 +74,35 @@
 
     <EditText
         android:id="@+id/etComment"
-        android:layout_width="match_parent"
+        android:layout_width="294dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/ivComment"
         android:layout_below="@+id/ivComment"
+        android:layout_marginStart="-20dp"
         android:ems="10"
         android:hint="Comment"
-        android:textColor="@color/black"
         android:inputType="textPersonName"
         android:selectAllOnFocus="false"
-        android:singleLine="false" />
+        android:singleLine="false"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/ivCurrUser"
+        android:layout_width="53dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/ivLikes"
+        android:layout_below="@+id/ivComment"
+        app:srcCompat="@drawable/instagram_user_outline_24" />
+
+    <TextView
+        android:id="@+id/commentCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivComment"
+        android:layout_toEndOf="@+id/ivComment"
+        android:text="0"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
 
 </RelativeLayout>

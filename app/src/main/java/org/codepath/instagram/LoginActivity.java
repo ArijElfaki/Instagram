@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
+        user.put("Bio", "Hewwo");
         // Invoke signUpInBackground
 
         user.signUpInBackground(new SignUpCallback() {
