@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
     EditText etBio;
 
 
-    postAdapter postAdapter;
+    profilePostAdapter postAdapter;
     ArrayList<Post> posts;
     RecyclerView rvPosts;
 
@@ -79,21 +79,33 @@ public class ProfileFragment extends Fragment {
         userName=(TextView) view.findViewById(R.id.profileUsername);
 
         posts=new ArrayList<>();
-        postAdapter= new postAdapter(posts);
+        postAdapter= new profilePostAdapter(posts);
         //RecyclerView setup (layout manager, use adapter)
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Define 2 column grid layout
+        final GridLayoutManager layout = new GridLayoutManager(getContext(), 2);
+
+
+        rvPosts.setLayoutManager(layout);
         rvPosts.setAdapter(postAdapter);
         loadTopPosts();
+
+        etBio.setText(tvBio.getText().toString());
+
 
 
         userName.setText(ParseUser.getCurrentUser().getUsername());
         setBio.setVisibility(View.INVISIBLE);
         etBio.setVisibility(View.INVISIBLE);
-        GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
-                .into(profile);
+
+        if (ParseUser.getCurrentUser().getParseFile("Profile")!=null){
+            GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
+                    .into(profile);}
 
 
         tvBio.setText( ParseUser.getCurrentUser().getString("Bio"));
+        etBio.setText(tvBio.getText().toString());
+
 
 
         btLogout= view.findViewById(R.id.logout);
@@ -121,6 +133,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 setBio.setVisibility(View.VISIBLE);
                 etBio.setVisibility(View.VISIBLE);
+
 
                 editBio.setVisibility(View.INVISIBLE);
                 tvBio.setVisibility(View.INVISIBLE);

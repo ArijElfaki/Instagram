@@ -56,8 +56,9 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl()).circleCrop()
                 .into(holder.ivProfileImage);
 
-        GlideApp.with(context).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
-                .into(holder.commentProfile);
+        if (ParseUser.getCurrentUser().getParseFile("Profile")!=null){
+            GlideApp.with(context).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
+                    .into(holder.commentProfile);}
 
     }
 
@@ -86,15 +87,15 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             super(itemView);
 
             // perform findViewById lookups
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfilePost);
             image= (ImageView)itemView.findViewById(R.id.postImage);
             userName= (TextView)itemView.findViewById(R.id.tvUserName);
             description= (TextView)itemView.findViewById(R.id.tvdescript);
-            commentIcon = (ImageView) itemView.findViewById(R.id.ivComment);
-            likeIcon = (ImageView) itemView.findViewById(R.id.ivLikes);
+            commentIcon = (ImageView) itemView.findViewById(R.id.ivCommentPost);
+            likeIcon = (ImageView) itemView.findViewById(R.id.ivLikesPost);
             timeStamp = (TextView) itemView.findViewById(R.id.tvTimeStamp);
             comment= (EditText)itemView.findViewById(R.id.etComment);
-            commentProfile= (ImageView)itemView.findViewById(R.id.ivCurrUser);
+            commentProfile= (ImageView)itemView.findViewById(R.id.ivCurrUserPost);
             commentCount= (TextView)itemView.findViewById(R.id.commentCount);
             image.setOnClickListener(this);
 

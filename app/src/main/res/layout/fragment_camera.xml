@@ -13,31 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/buttonCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="84dp"
-            android:text="Open Camera" />
-
         <ImageView
             android:id="@+id/ivPic"
-            android:layout_width="209dp"
-            android:layout_height="210dp"
-            android:layout_alignParentTop="true"
+            android:layout_width="181dp"
+            android:layout_height="181dp"
+            android:layout_above="@+id/picDescription"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
             android:src="@mipmap/ic_launcher" />
 
         <EditText
             android:id="@+id/picDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="205dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="250dp"
             android:ems="10"
             android:hint="Description"
             android:selectAllOnFocus="false"
@@ -45,12 +35,29 @@
 
         <Button
             android:id="@+id/buttonPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="27dp"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/buttonCamera"
             android:text="Post" />
+
+        <View
+            android:id="@+id/newLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/buttonPost"
+            android:background="#73aaaaaa" />
+
+        <Button
+            android:id="@+id/buttonCamera"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="162dp"
+            android:layout_marginStart="0dp"
+            android:text="Open Camera" />
 
     </RelativeLayout>
 

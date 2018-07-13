@@ -82,7 +82,7 @@ public class TimelineFragment extends Fragment {
         final Post.Query postQuery= new Post.Query();
         postQuery.getTop().withUser();
 
-        postQuery.findInBackground(new FindCallback<Post>() {
+        postQuery.orderByAscending("createdAt").findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> objects, ParseException e) {
                 if (e==null){

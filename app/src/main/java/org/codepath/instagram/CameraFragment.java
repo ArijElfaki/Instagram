@@ -96,6 +96,7 @@ public class CameraFragment extends Fragment {
                     Log.d("CameraActivity", "Inside onCLick!");
                     createPost(descript, parseFile, user);
 
+                    description.getText().clear();
                     btPost.setVisibility(View.INVISIBLE);
                     userPic.setVisibility(View.INVISIBLE);
                     description.setVisibility(View.INVISIBLE);
