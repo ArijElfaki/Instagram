@@ -51,6 +51,9 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://g.recordit.co/B8knen1nym.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+A gif of user persistence:
+<img src='http://g.recordit.co/8jTzNixJIa.gif' title='Persistence Walkthrough' width='' alt='Video Walkthrough' />
+
 GIF created with [RecordIt](recordit.co).
 
 ## Credits
