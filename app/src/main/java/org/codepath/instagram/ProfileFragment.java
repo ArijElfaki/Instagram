@@ -41,22 +41,20 @@ public class ProfileFragment extends Fragment {
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
-    File photoFile;
+    public File photoFile;
+
+    public TextView userName;
+    public Button btLogout;
+    public ImageView profile;
+    public Button setBio;
+    public Button editBio;
+    public TextView tvBio;
+    public EditText etBio;
 
 
-
-    TextView userName;
-    Button btLogout;
-    ImageView profile;
-    Button setBio;
-    Button editBio;
-    TextView tvBio;
-    EditText etBio;
-
-
-    profilePostAdapter postAdapter;
-    ArrayList<Post> posts;
-    RecyclerView rvPosts;
+    public profilePostAdapter postAdapter;
+    public ArrayList<Post> posts;
+    public RecyclerView rvPosts;
 
 
 

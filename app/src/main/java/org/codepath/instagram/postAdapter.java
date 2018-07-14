@@ -53,8 +53,9 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         GlideApp.with(context).load(post.getImage().getUrl())
                .into(holder.image);
 
-        GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl()).circleCrop()
-                .into(holder.ivProfileImage);
+        if (post.getUser().getParseFile("Profile")!=null){
+            GlideApp.with(context).load(post.getUser().getParseFile("Profile").getUrl()).circleCrop()
+                    .into(holder.ivProfileImage);}
 
         if (ParseUser.getCurrentUser().getParseFile("Profile")!=null){
             GlideApp.with(context).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()

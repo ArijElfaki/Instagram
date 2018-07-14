@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 
 import org.codepath.instagram.Model.Post;
 
@@ -29,11 +28,9 @@ public class DetailFragment extends Fragment {
     public TextView userName;
     public TextView timeStamp;
     public TextView description;
-    public TextView likes;
-    public TextView comment;
     public ImageView commentIcon;
     public ImageView likeIcon;
-    public TextView tvComment;
+    public TextView commentCount;
 
     public RecyclerView rvComments;
     public commentAdapter commentAdapter;
@@ -56,13 +53,12 @@ public class DetailFragment extends Fragment {
         image= (ImageView)view.findViewById(R.id.postImage);
         userName= (TextView)view.findViewById(R.id.tvUserName);
         description= (TextView)view.findViewById(R.id.tvdescript);
-        likes = (TextView) view.findViewById(R.id.likes);
-        comment = (TextView) view.findViewById(R.id.tvcomment);
+
         commentIcon = (ImageView) view.findViewById(R.id.ivComment);
         likeIcon = (ImageView) view.findViewById(R.id.ivLikes);
         timeStamp = (TextView) view.findViewById(R.id.tvTimeStamp);
         rvComments= (RecyclerView)view.findViewById(R.id.rvComments);
-        tvComment= (TextView)view.findViewById(R.id.tvcomment);
+        commentCount= view.findViewById(R.id.detailCommentCount);
         comments= new ArrayList<>();
 
         commentAdapter= new commentAdapter(comments);
@@ -85,11 +81,11 @@ public class DetailFragment extends Fragment {
                     timeStamp.setText(object.getRelativeTimeAgo());
                     GlideApp.with(getContext()).load(object.getImage().getUrl())
                             .into(image);
-                    GlideApp.with(getContext()).load(ParseUser.getCurrentUser().getParseFile("Profile").getUrl()).circleCrop()
+                    GlideApp.with(getContext()).load(object.getUser().fetchIfNeeded().getParseFile("Profile").getUrl()).circleCrop()
                             .into(ivProfileImage);
                     comments.clear();
                     comments.addAll(object.getList("Comment"));
-                    tvComment.setText(comments.size());
+                    commentCount.setText(""+comments.size());
                     commentAdapter.notifyDataSetChanged();
 
 
