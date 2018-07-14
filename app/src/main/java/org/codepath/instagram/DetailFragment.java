@@ -81,8 +81,9 @@ public class DetailFragment extends Fragment {
                     timeStamp.setText(object.getRelativeTimeAgo());
                     GlideApp.with(getContext()).load(object.getImage().getUrl())
                             .into(image);
-                    GlideApp.with(getContext()).load(object.getUser().fetchIfNeeded().getParseFile("Profile").getUrl()).circleCrop()
-                            .into(ivProfileImage);
+                    if (object.getUser().fetchIfNeeded().getParseFile("Profile")!=null){
+                        GlideApp.with(getContext()).load(object.getUser().fetchIfNeeded().getParseFile("Profile").getUrl()).circleCrop()
+                                .into(ivProfileImage);}
                     comments.clear();
                     comments.addAll(object.getList("Comment"));
                     commentCount.setText(""+comments.size());
@@ -95,12 +96,5 @@ public class DetailFragment extends Fragment {
 
             }
         });
-
-
-
-
-
-
-
     }
 }

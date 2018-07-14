@@ -58,17 +58,14 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.ViewHold
             public void done(List<ParseUser> objects, ParseException e) {
                 for (int i=0; i<objects.size(); ++i) {
                     user = objects.get(i);
-                    GlideApp.with(context).load(user.getParseFile("Profile").getUrl()).circleCrop()
-                            .into(holder.ivProfile);
+                    if (user.getParseFile("Profile")!=null){
+                        GlideApp.with(context).load(user.getParseFile("Profile").getUrl()).circleCrop()
+                                .into(holder.ivProfile);}
                     holder.tvComment.setText(Html.fromHtml("<b>@"+user.getUsername()+"</b> "+commentSplit[1]));
 
                 }
             }
         });
-
-
-
-
     }
 
     @Override

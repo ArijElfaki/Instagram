@@ -22,7 +22,8 @@
         android:layout_height="33dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:adjustViewBounds="false" />
+        android:adjustViewBounds="false"
+        app:srcCompat="@drawable/instagram_user_outline_24"/>
 
 
 </RelativeLayout>

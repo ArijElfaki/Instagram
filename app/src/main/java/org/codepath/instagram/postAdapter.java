@@ -77,7 +77,6 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
         public TextView userName;
         public TextView timeStamp;
         public TextView description;
-        public TextView likes;
         public EditText comment;
         public ImageView commentIcon;
         public ImageView likeIcon;
@@ -99,6 +98,8 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.ViewHolder> {
             commentProfile= (ImageView)itemView.findViewById(R.id.ivCurrUserPost);
             commentCount= (TextView)itemView.findViewById(R.id.commentCount);
             image.setOnClickListener(this);
+
+            
 
 
             commentIcon.setOnClickListener(new View.OnClickListener() {
